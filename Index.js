@@ -6,83 +6,78 @@ const Intern = require("./lib/Intern");
 
 const team = [];
 
-function initApp() {
-    startHtml();
-    addMember();
-}
+const initApp = () => {
+  startHtml();
+  createTeam();
+};
 
-function addMember() {
-    inquirer.prompt([{
-        message: "Enter team member's name",
-        name: "name"
-    },
-    {
+const createTeam = () => {
+  return inquirer
+    .prompt([
+      {
+        message: "Enter team manager`s name",
+        name: "name",
+      }, 
+      {
+        message: "Enter team manager's id",
+        name: "id",
+      },
+      
+      {
         type: "list",
         message: "Select team member's role",
-        choices: [
-            "Engineer",
-            "Intern",
-            "Manager"
-        ],
-        name: "role"
-    },
-    {
-        message: "Enter team member's id",
-        name: "id"
-    },
-    {
-        message: "Enter team member's email address",
-        name: "email"
-    }])
-    .then(function({name, role, id, email}) {
-        let roleInfo = "";
-        if (role === "Engineer") {
-            roleInfo = "GitHub username";
-        } else if (role === "Intern") {
-            roleInfo = "school name";
-        } else {
-            roleInfo = "office number";
-        }
-        inquirer.prompt([{
+        choices: ["Engineer", "Intern"],
+        name: "role",
+      },
+     
+     
+    ])
+    .then(({ name, role, id, email }) => {
+      let roleInfo = "";
+      if (role === "Engineer") {
+        roleInfo = "GitHub username";
+      } else if (role === "Intern") {
+        roleInfo = "school name";
+      } else {
+        roleInfo = "office number";
+      }
+      inquirer
+        .prompt([
+          {
             message: `Enter team member's ${roleInfo}`,
-            name: "roleInfo"
-        },
-        {
+            name: "roleInfo",
+          },
+          {
             type: "list",
             message: "Would you like to add more team members?",
-            choices: [
-                "yes",
-                "no"
-            ],
-            name: "moreMembers"
-        }])
-        .then(function({roleInfo, moreMembers}) {
-            let newMember;
-            if (role === "Engineer") {
-                newMember = new Engineer(name, id, email, roleInfo);
-            } else if (role === "Intern") {
-                newMember = new Intern(name, id, email, roleInfo);
+            choices: ["yes", "no"],
+            name: "moreMembers",
+          },
+        ])
+        .then(({ roleInfo, moreMembers }) => {
+          let newMember;
+          if (role === "Engineer") {
+            newMember = new Engineer(name, id, email, roleInfo);
+          } else if (role === "Intern") {
+            newMember = new Intern(name, id, email, roleInfo);
+          } 
+        //   else {
+        //     newMember = new Manager(name, id, email, roleInfo);
+        //   }
+          team.push(newMember);
+          addHtml(newMember).then(() => {
+            if (moreMembers === "yes") {
+              createTeam();
             } else {
-                newMember = new Manager(name, id, email, roleInfo);
+              finishHtml();
             }
-            team.push(newMember);
-            addHtml(newMember)
-            .then(function() {
-                if (moreMembers === "yes") {
-                    addMember();
-                } else {
-                    finishHtml();
-                }
-            });
-            
+          });
         });
     });
-}
+};
 
-
-
-function startHtml() {
-    const html = `<!DOCTYPE html>
+const startHtml = () => {
+  const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -97,24 +92,24 @@ function startHtml() {
         </nav>
         <div class="container">
             <div class="row">`;
-    fs.writeFile("./dist/team.html", html, function(err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-    console.log("start");
-}
+  fs.writeFile("./dist/team.html", html,(err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  console.log("start");
+};
 
-function addHtml(member) {
-    return new Promise(function(resolve, reject) {
-        const name = member.getName();
-        const role = member.getRole();
-        const id = member.getId();
-        const email = member.getEmail();
-        let data = "";
-        if (role === "Engineer") {
-            const gitHub = member.getGithub();
-            data = `<div class="col-6">
+const addHtml = (member) => {
+  return new Promise((resolve, reject) => {
+    const name = member.getName();
+    const role = member.getRole();
+    const id = member.getId();
+    const email = member.getEmail();
+    let data = "";
+    if (role === "Engineer") {
+      const gitHub = member.getGithub();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Engineer</h5>
             <ul class="list-group list-group-flush">
@@ -124,9 +119,9 @@ function addHtml(member) {
             </ul>
             </div>
         </div>`;
-        } else if (role === "Intern") {
-            const school = member.getSchool();
-            data = `<div class="col-6">
+    } else if (role === "Intern") {
+      const school = member.getSchool();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Intern</h5>
             <ul class="list-group list-group-flush">
@@ -136,9 +131,9 @@ function addHtml(member) {
             </ul>
             </div>
         </div>`;
-        } else {
-            const officePhone = member.getOfficeNumber();
-            data = `<div class="col-6">
+    } else {
+      const officePhone = member.getOfficeNumber();
+      data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />Manager</h5>
             <ul class="list-group list-group-flush">
@@ -147,38 +142,31 @@ function addHtml(member) {
                 <li class="list-group-item">Office Phone: ${officePhone}</li>
             </ul>
             </div>
-        </div>`
-        }
-        console.log("adding team member");
-        fs.appendFile("./dist/team.html", data, function (err) {
-            if (err) {
-                return reject(err);
-            };
-            return resolve();
-        });
+        </div>`;
+    }
+    console.log("adding team member");
+    fs.appendFile("./dist/team.html", data, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
     });
-    
-            
-    
-        
-    
-    
+  });
 }
 
-function finishHtml() {
-    const html = ` </div>
+const finishHtml = ()=> {
+  const html = ` </div>
     </div>
     
 </body>
 </html>`;
 
-    fs.appendFile("./dist/team.html", html, function (err) {
-        if (err) {
-            console.log(err);
-        };
-    });
-    console.log("end");
+  fs.appendFile("./dist/team.html", html,(err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  console.log("end");
 }
 
-console.log(team);
 initApp();
