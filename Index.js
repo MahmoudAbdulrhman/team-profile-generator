@@ -35,11 +35,7 @@ const createManager = () => {
         name: "officeNumber"
       },
     ])
-    .then(({
-      name,
-      id,
-      email,
-      officeNumber
+    .then(({name,id,email,officeNumber
     }) => {
       let newManager = new Manager(name, id, email, officeNumber);
       team.push(newManager)
@@ -55,7 +51,7 @@ const addTeamMember = () => {
 
       type: "list",
       message: "Select team member's role",
-      choices: ["Engineer", "Intern"],
+      choices: ["Engineer", "Intern","Finish building"],
       name: "role",
     }, ]).then(({
       role
@@ -84,15 +80,10 @@ const addTeamMember = () => {
             message: 'what is the Engineer github',
             name: 'github'
           }
-        ]).then(({
-          name,
-          id,
-          email,
-          github
-        }) => {
+        ]).then(({name,id, email,github}) => {
           let newEngineer = new Engineer(name, id, email, github);
           team.push(newEngineer);
-          addNewMember();
+          addTeamMember();
           addHtml(newEngineer);
         })
       } else if (role === "Intern") {
@@ -120,39 +111,16 @@ const addTeamMember = () => {
             message: 'what is the Intern school',
             name: 'school'
           }
-        ]).then(({
-          name,
-          id,
-          email,
-          school
-        }) => {
+        ]).then(({name,id,email,school}) => {
           let newIntern = new Intern(name, id, email, school);
           team.push(newIntern);
-          addNewMember();
+          addTeamMember();
           addHtml(newIntern);
         })
+      }else if (role === "Finish building"){
+        finishHtml();
       }
     })
-}
-
-const addNewMember = () => {
-  return inquirer.prompt([{
-    type: "list",
-    message: "Would you like to add more team members?",
-    choices: ["yes", "no"],
-    name: "moreMembers",
-  }]).then(({
-    moreMembers
-  }) => {
-    if (moreMembers === "yes") {
-      addTeamMember();
-    } else {
-
-      finishHtml();
-      console.log('Bulid Html');
-      console.log(team);
-    }
-  })
 }
 
 const startHtml = () => {
@@ -167,7 +135,7 @@ const startHtml = () => {
         <title>Team Profile</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-warning mb-5 shadow p-3 mb-5 rounded">
+        <nav class="navbar p-3 mb-2 bg-success text-white shadow p-3 mb-5 rounded">
         <h1 class=" mb-0 w-100 text-center font-weight-bold ">Team Profile</h1>
         </nav>
         <div class="container">
