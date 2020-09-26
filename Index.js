@@ -3,6 +3,7 @@ const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
+// var colors = require('colors');
 
 const team = [];
 
@@ -145,7 +146,7 @@ const startHtml = () => {
       console.log(err);
     }
   });
-  console.log("start");
+  console.log("\x1b[44m\x1b[33mSTART CREATING YOUR TEAM!!!\x1b[0m");
 };
 
 const addHtml = (member) => {
@@ -225,7 +226,7 @@ const finishHtml = () => {
       console.log(err);
     }
   });
-  console.log("end");
+  console.log("\x1b[44m\x1b[33mYOUR TEAM ARE READY!!!\x1b[0m");
 }
 
 initApp();
