@@ -31,7 +31,7 @@ npm i
 JAvaScript,ES6,node.js
 ```
 
-## Screencastify
+## Videos
 
 [![Watch the Video](https://img.youtube.com/vi/o-oflxz55DM/0.jpg)](https://youtu.be/o-oflxz55DM "Team Profile Generator")
 
