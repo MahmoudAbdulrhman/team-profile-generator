@@ -31,14 +31,11 @@ npm i
 JAvaScript,ES6,node.js
 ```
 
-Link to Video
-<https://youtu.be/o-oflxz55DM>
-
-<https://drive.google.com/file/d/1ob6g_fjY8XxvYGdIZAxM7VYQpcVfF-7J/view>
-
 ## Screencastify
 
 [![Watch the Video](https://img.youtube.com/vi/o-oflxz55DM/0.jpg)](https://youtu.be/o-oflxz55DM "Team Profile Generator")
+
+<https://drive.google.com/file/d/1ob6g_fjY8XxvYGdIZAxM7VYQpcVfF-7J/view>
 
 ## Screenshot
 
