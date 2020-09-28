@@ -16,12 +16,11 @@ npm inquirer
 Jest
 HTML
 Bootstrap 4
-<https://fontawesome.com/>
-Link to Repository
-<https://github.com/itsrheine/team-profile-generator>
 
 Link to Video
-<https://drive.google.com/file/d/1MFfHy671CR4ImKYmxIKTzWhEB1mlwdvP/view>
+<https://youtu.be/o-oflxz55DM>
+
+<https://drive.google.com/file/d/1ob6g_fjY8XxvYGdIZAxM7VYQpcVfF-7J/view>
 
 Screencastify
 Watch the Video
