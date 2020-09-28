@@ -38,8 +38,8 @@ Link to Video
 
 ## Screencastify
 
-[![Watch the Video]()](https://youtu.be/o-oflxz55DM "Team Profile Generator")
+[![Watch the Video](https://img.youtube.com/vi/o-oflxz55DM/0.jpg)](https://youtu.be/o-oflxz55DM "Team Profile Generator")
 
 ## Screenshot
 
-![Screenshot](assets/images/ssh1.jpg)
+![Screenshot](assets/imges/Team-1.png)
